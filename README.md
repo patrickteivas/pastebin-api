@@ -1,5 +1,5 @@
 # Paste project
-This project is containerized and is meant to create quick pastes by API.
+This project is containerized and is meant to create quick pastes by API.<br>
 Pastes are stored in Redis in-memory database without volumes (Persistence).
 
 ## Getting Started
@@ -12,9 +12,8 @@ docker-compose up -d
 3. Use project endpoints according to swagger documentation
 
 ### Documentation
-Easiest way to see swagger file as documentation is to copy `swagger.yaml` file to https://editor.swagger.io/
-<br>
-**Alternatives**:
+Easiest way to see swagger file as documentation is to copy `swagger.yaml` file to https://editor.swagger.io/<br><br>
+**Alternatives**:<br>
 To see documentation locally
 
 * Windows:
