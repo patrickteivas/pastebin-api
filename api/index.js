@@ -18,6 +18,7 @@ client.on("error", function(error) {
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   res.header("Content-Type", "application/json");
   next();
 });
@@ -59,16 +60,13 @@ app.put('/edit', async (req, res) => {
 });
 
 app.get('/[A-Za-z0-9]{12}', (req, res) => {
-  const form = formidable({ multiples: true });
-  form.parse(req, async (err, fields) => {
-    const hash = fields.hash.toString();
-    if(!hash) return res.status(400).send(JSON.stringify({message: "Invalid hash parameter"}))
+  const hash = req.url.substring(1);
+  if(!hash) return res.status(400).send(JSON.stringify({message: "Invalid hash parameter"}))
 
-    const getHashContent = await getAsync(hash).then((value, err) => (value))
-    if(!getHashContent) return res.status(400).send(JSON.stringify({message: "Invalid hash parameter"}))
+  const getHashContent = await getAsync(hash).then((value, err) => (value))
+  if(!getHashContent) return res.status(400).send(JSON.stringify({message: "Invalid hash parameter"}))
 
-    return res.status(200).send(JSON.stringify({hash, content: JSON.parse(getHashContent)}));
-  });
+  return res.status(200).send(JSON.stringify({hash, content: JSON.parse(getHashContent)}));
 })
 
 app.delete('/delete', (req, res) => {
