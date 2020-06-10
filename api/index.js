@@ -1,7 +1,9 @@
+'use strict';
+
 const express = require('express');
 const redis = require("redis");
 const formidable = require('formidable');
-const createHash = require("./utils/createHash");
+const createHash = require("./helpers/createHash");
 const { promisify } = require("util");
 
 const client = redis.createClient("redis://redis:6379");
@@ -11,6 +13,13 @@ const port = 8080;
 
 client.on("error", function(error) {
   console.error(error);
+});
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Content-Type", "application/json");
+  next();
 });
 
 

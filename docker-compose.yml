@@ -13,7 +13,7 @@ services:
       dockerfile: Dockerfile
     image: pastebin
     container_name: pastebin
-    command: node_modules/.bin/nodemon src/index.js
+    command: node_modules/.bin/nodemon api/index.js
     ports:
       - "8080:8080"
     volumes:
