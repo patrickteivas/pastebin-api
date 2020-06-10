@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Paste Project
+host: localhost:8080
+schemes:
+  - http
+consumes:
+  - multipart/form-data
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      description: Create paste and get its hash (Key) and content.
+      parameters:
+        - in: formData
+          name: content
+          description: Paste content.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CreateResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /edit:
+    put:
+      description: Update paste by hash.
+      parameters:
+        - in: formData
+          name: hash
+          description: Paste hash.
+          required: true
+          type: string
+        - in: formData
+          name: content
+          description: New content.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CreateResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /{hash}:
+    get:
+      description: Get paste by hash.
+      parameters:
+        - in: path
+          name: hash
+          description: Paste hash.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CreateResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /delete:
+    delete:
+      description: Delete paste by hash.
+      parameters:
+        - in: formData
+          name: hash
+          description: Paste hash.
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
+definitions:
+  CreateResponse:
+    type: object
+    required: 
+      - hash
+      - content
+    properties:
+      hash:
+        type: string
+        description: Unique paste hash.
+      content:
+        type: string
+        description: Stored content.
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        description: Error message.
+  DeleteResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        description: Delete message.
