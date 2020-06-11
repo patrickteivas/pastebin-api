@@ -59,7 +59,7 @@ app.put('/edit', async (req, res) => {
   });
 });
 
-app.get('/[A-Za-z0-9]{12}', (req, res) => {
+app.get('/[A-Za-z0-9]{12}', async (req, res) => {
   const hash = req.url.substring(1);
   if(!hash) return res.status(400).send(JSON.stringify({message: "Invalid hash parameter"}))
 
