@@ -21,5 +21,5 @@ services:
       # - node_modules:/home/node/app/node_modules
     restart: always
 
-volumes:
-  node_modules:  
+# volumes:
+#   node_modules:  
